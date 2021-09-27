@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+ FreeCAD Document, see http://www.freecadweb.org for more information...
+-->
+<Document SchemaVersion="1" FileVersion="2" Split="1" HasExpansion="1">
+<Expand  count="2">
+  <Expand name="Part"/>
+  <Expand name="Cut"/>
+</Expand>
+>
+  <Camera extra="0" id="3" binding="0">
+<![CDATA[
+PerspectiveCamera {
+  viewportMapping ADJUST_CAMERA
+  position 176.27716 440.48697 7.0817661
+  orientation -0.33629647 -0.63423181 -0.69617152  3.6165636
+  nearDistance 0.21972385
+  farDistance 901.79071
+  aspectRatio 1
+  focalDistance 303.54361
+  heightAngle 0.78539819
+
+}
+## overrideMode: Shadow]]>
+  </Camera>
+</Document>
