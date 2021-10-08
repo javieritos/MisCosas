@@ -93,19 +93,14 @@ void loop()
 // FUNCION CALCULAR DISTANCIA
 
 float calcularDistancia()
+
 {
-  // La función pulseIn obtiene el tiempo que tarda en cambiar entre estados, en este caso a HIGH
   unsigned long tiempo = pulseIn(ECHO, HIGH);
- 
-  // Obtenemos la distancia en cm, hay que convertir el tiempo en segudos ya que está en microsegundos
-  // por eso se multiplica por 0.000001
   float distancia = tiempo * 0.000001 * sonido / 2.0;
-  
- 
   return distancia;
 }
 
-// FUNCION VELOCIDAD MOTOR
+// FUNCION DIRECCION MOTOR
 
 void velocidadMotor(float distancia)
 {
