@@ -35,7 +35,6 @@ int paso [4][4] =
   {0, 0, 1, 1},
   {1, 0, 0, 1}
 };
- 
 void setup()
 {
   // Todos los pines en modo salida
@@ -47,10 +46,10 @@ void setup()
   pinMode(IN6, OUTPUT);
   pinMode(IN7, OUTPUT);
   pinMode(IN8, OUTPUT);
-  pinMode(IN14, OUTPUT);
-  pinMode(IN15, OUTPUT);
-  pinMode(IN16, OUTPUT);
-  pinMode(IN17, OUTPUT);
+  pinMode(DIR1, OUTPUT);
+  pinMode(DIR2, OUTPUT);
+  pinMode(DIR3, OUTPUT);
+  pinMode(DIR4, OUTPUT);
   pinMode(TRIGGER, OUTPUT);
   pinMode(ECHO, INPUT);
 
@@ -61,27 +60,23 @@ void setup()
  
 void loop()
 { 
-  
-  iniciarTrigger();
-  float distancia = calcularDistancia();
+  //iniciarTrigger();
+  //float distancia = calcularDistancia();
   todoMotor();
-    if (distancia < umbral1)
-  {
+ // giraDerecha();
+   // if (distancia < umbral1)
+ // {
     // Lanzamos alertas
-   velocidadMotor(distancia);
+//   velocidadMotor(distancia);
+ // }
+  //Serial.print(distancia);
+  //Serial.print("cm");
+  //Serial.println();
+ // delay(100);
   }
-  Serial.print(distancia);
-  Serial.print("cm");
-  Serial.println();
-  delay(100);
-  }
-
-  
-  
-}
   
    
-void todoMotor();
+void todoMotor()
 
   { 
     for (int i = 0; i < 4; i++)
@@ -114,3 +109,67 @@ void marchaAtras()
       delay(10);
     }
   }
+
+void giraDerecha()
+
+{
+  for (int contador = 0; contador < 500; contador++)
+  {
+    for (int i = 0; i < 4; i++)
+    {
+      {
+      digitalWrite(DIR1, paso[i][0]);
+      digitalWrite(DIR2, paso[i][1]);
+      digitalWrite(DIR3, paso[i][2]);
+      digitalWrite(DIR4, paso[i][3]);
+      delay(10);
+    }
+  }
+}
+}
+
+//FUNCION INICIAR MEDIDOR
+  
+  void iniciarTrigger()
+{
+  digitalWrite(TRIGGER, LOW);
+  delayMicroseconds(4);
+  
+  digitalWrite(TRIGGER, HIGH);
+  delayMicroseconds(10);
+  
+  digitalWrite(TRIGGER, LOW);
+}
+  
+
+// FUNCION CALCULAR DISTANCIA
+
+float calcularDistancia()
+
+{
+  unsigned long tiempo = pulseIn(ECHO, HIGH);
+  float distancia = tiempo * 0.000001 * sonido / 2.0;
+  return distancia;
+}
+
+// FUNCION DIRECCION MOTOR
+
+void velocidadMotor(float distancia)
+{
+  if (distancia < umbral1 && distancia >= umbral2)
+  {
+    // TODO MOTOR
+    todoMotor();
+  }
+  else if (distancia < umbral2 && distancia > umbral3)
+  {
+    // motor a medias
+    giraDerecha();
+  }
+  else if (distancia <= umbral3)
+  {
+    // paramos motor
+    giraDerecha();
+  }
+}
+  
